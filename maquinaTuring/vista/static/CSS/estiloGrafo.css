@@ -1,0 +1,204 @@
+#grafo {
+    text-align: center;
+    line-height: 7cm;
+    margin: 10%;
+}
+.circulo {
+    background: white;
+    border-radius: 50%;
+    border: 1mm black solid;
+    border-width: 1mm;
+    padding: 4mm;
+    padding-left: 4mm;
+    padding-right: 4mm;
+}
+.flecha {
+    position: absolute;
+    width: 3mm;
+    height: 3mm;
+    margin: 1mm;
+    border-top: solid 1mm black;
+    border-right: solid 1mm black;
+}
+.letra {
+    position: absolute;
+    font-size: 6mm;
+}
+#q2 {
+    margin-left: 26mm;
+}
+#l1 {
+    width: 27mm;
+    margin-left: -27mm;
+    margin-top: 34mm;
+    transform: rotate(360deg);
+}
+#f1 {
+    margin-top: 33mm;
+    margin-left: -4mm;
+    transform: rotate(49deg);
+}
+#l2 {
+    width: 28mm;
+    margin-left: -2mm;
+    margin-top: 34mm;
+    transform: rotate(360deg);
+}
+#f2 {
+    margin-top: 33mm;
+    margin-left: 22mm;
+    transform: rotate(49deg);
+}
+#l3 {
+    width: 28mm;
+    margin-left: -1mm;
+    margin-top: 34mm;
+    transform: rotate(360deg);
+}
+#f3 {
+    margin-top: 33mm;
+    margin-left: 23mm;
+    transform: rotate(49deg);
+}
+#f4 {
+    margin-top: 26mm;
+    margin-left: 11mm;
+    transform: rotate(168deg);
+}
+#f5 {
+    margin-top: 39mm;
+    margin-left: 11mm;
+    transform: rotate(267deg);
+}
+#f6 {
+    margin-top: 26mm;
+    margin-left: -4mm;
+    transform: rotate(171deg);
+}
+#q3 {
+    outline: 1mm black solid;
+    outline-offset: 2mm;
+    margin-left: 30mm;
+}
+#let1{
+    margin-top: -24mm;
+}
+#let2{
+    margin-top: 24mm;
+}
+#let3{
+    margin-left: 5mm;
+    margin-top: -4mm;
+}
+#let4{
+    margin-top: -24mm;
+    margin-left: -14mm;
+}
+#let5{
+    margin-top: -4mm;
+    margin-left: 4mm;
+}
+#flechaCurva1 {
+    width: 47mm;
+    height: 25mm;
+    position: absolute;
+    margin-top: 11mm;
+    margin-left: -9mm;
+}
+#flechaCurva2 {
+    width: 47mm;
+    height: 25mm;
+    position: absolute;
+    margin-top: 34mm;
+    margin-left: -9mm;
+}
+#flechaCurva3 {
+    width: 47mm;
+    height: 25mm;
+    position: absolute;
+    margin-top: 11mm;
+    margin-left: -24mm;
+}
+.linea {
+    position: absolute;
+    border-top: solid 1mm black;
+}
+.cuadro{
+    fill: white;
+    stroke: gray;
+}
+.letraCin{
+    font-size: 25px;
+}
+#insercion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 10vh;
+    background-color: #ffffff;
+    padding-top: 5rem;
+    padding-bottom: 15rem;
+}
+
+#evaluador{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem;
+    border-radius: 1rem;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+input[type="text"], button[type="submit"] {
+    font-size: 1.2rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: none;
+  }
+  
+input[type="text"] {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+button[type="submit"] {
+    background-color: #1c7cd6;
+    color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    transition: 0.2s ease;
+}
+  
+button[type="submit"]:hover {
+    background-color: #10549f;
+}
+  
+ul{
+    margin-top: 2rem;
+    padding-left: 2rem;
+    list-style-type: none;
+    text-align: center;
+}
+  
+li{
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: #ffffff;
+}
+table{
+    border-collapse: collapse;
+    width: 100%;
+}
+th, td{
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+  
+th{
+    background-color: #f2f2f2;
+    color: #444;
+}

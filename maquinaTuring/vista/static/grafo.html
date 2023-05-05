@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>maquina de turing</title>
+    <link rel="stylesheet" href='{% static "CSS/estiloGrafo.css" %}'>
+</head>
+{% if idioma %}
+<body onload="interfazIdioma('false','{{idioma}}'),mensajeVoz('{{idioma}}'),historialEspacio(),idiomaSeleccionado('{{idioma}}')">
+{% else %}
+<body onload="interfazIdioma('false','{{idioma}}'),historialEspacio()"></body>
+{% endif %}
+    <label for="lenguaje" id="eleccionLeng">elija el idioma:</label>
+    <select name="lenguaje" id="lenguaje">
+        <option value="Espaniol">Espa&ntildeol</option>
+        <option value="English">English</option>
+        <option value="Frances">Frances</option>
+    </select>
+    <button type="button" id="botonIdioma" onclick="interfazIdioma('true','null'),idiomaSeleccionado('null')">Ok</button>
+    <section id="grafo">
+        <span class="linea" id="l1"></span>
+        <span class="flecha" id="f1"></span>
+        <span id="let1" class="letra">a/a/R</span>
+        <canvas id="flechaCurva1"></canvas>
+        <span class="flecha" id="f4"></span>
+        <span id="let2" class="letra">b/a/R</span>
+        <canvas id="flechaCurva2"></canvas>
+        <span class="flecha" id="f5"></span>
+        <span class="circulo" id="q1">q1</span>
+        <span id="let3" class="letra">B/B/L</span>
+        <span class="linea" id="l2"></span>
+        <span class="flecha" id="f2"></span>
+        <span class="circulo" id="q2">q2</span>
+        <span id="let4" class="letra">a/a/L</span>
+        <canvas id="flechaCurva3"></canvas>
+        <span class="flecha" id="f6"></span>
+        <span id="let5" class="letra">B/B/R</span>
+        <span class="linea" id="l3"></span>
+        <span class="flecha" id="f3"></span>
+        <span class="circulo" id="q3">q3</span>
+    </section>
+    <svg width="95%" viewBox="0 0 1400 70">
+        <g id="cinta">
+            <g class="simbolo">
+                <rect class="cuadro" width="50" height="50"></rect>
+                <text class="letraCin" x="20" y="33"></text>
+            </g>
+            <g class="simbolo" transform="translate(50)">
+                <rect class="cuadro" width="50" height="50"></rect>
+                <text class="letraCin" x="20" y="33"></text>
+            </g>
+            <g class="simbolo" transform="translate(100)">
+                <rect class="cuadro" width="50" height="50"></rect>
+                <text class="letraCin" x="20" y="33"></text>
+            </g>
+        </g>
+    </svg>
+    <br><br><br><br><br><br><br>
+    <section id="insercion">
+        {% if idioma %}
+        <form method="post" action="{% url 'maquinaTuring' '{{idioma}}' %}"  id="evaluador" >
+        {% else %}
+        <form method="post" action="{% url 'maquinaTuring' 'Espaniol' %}"  id="evaluador" >
+        {% endif %}
+            {% csrf_token %}
+            <input type="text" name="palabra" id='palabra' placeholder="Ingrese una palabra...">
+            <button id="validacion" type="submit" onclick="interfazIdioma()">Evaluar</button>
+        </form>
+        {% if resultados %}
+            <ul>
+            {% for resultado in resultados %}
+                <li id="mensajeAutomata">{{ resultado }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+        <br>
+        <div id="evaluador">    
+            <form method="post" action="{% url 'historial' %}">
+                {% csrf_token %}
+                <button type="submit" id="botonHistorial" onclick="interfazIdioma()">Mostrar historial</button>
+            </form>
+            <form method="post" action="{% url 'borrar_historial' %}" > 
+                {% csrf_token %}
+                <button type="submit" id="botonBorrarHistorial" onclick="interfazIdioma()">Borrar historial</button>
+            </form>
+        </div>
+        <br>    
+        {% if historial %}
+            <table id="historial">
+                <thead>
+                    <tr>
+                        <th id="tablaPalabra">Palabra ingresada</th>
+                         <th id="tablaEstado">"Estado de la palabra"</th>
+                     </tr>
+                 </thead>
+                   <tbody>
+                     {% for h in historial %}
+                     <tr>
+                          <td>{{ h.palabrasIngresadas }}</td>
+                          <td class="estadoPalabra">{{ h.estadoDelaPalabra }}</td>
+                     </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+        <p id="sinHistorial"> "No hay palabras en el historial."</p>
+        {% endif %}
+    </section>
+    <script src='{% static "JS/flechasCanvas.js"%}'></script>
+    <script src='{% static "JS/grafo.js"%}'></script>
+</body>
+</html>
