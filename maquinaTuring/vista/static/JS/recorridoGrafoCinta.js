@@ -106,8 +106,8 @@ function encenderGrafo(){
     if (document.getElementById("mensajeAutomata")!=null) {
         let cadenaCompleta=document.getElementById("mensajeAutomata").innerText;
         let palabra=obtenerPalabraValida(cadenaCompleta);
-        let retraso=2000;
-        let auxRetr=2000;
+        let retraso=retrasoSegundos();
+        let auxRetr=retraso;
         if(palabra!=null){
             setTimeout(function(){correrComandos("q1","l1","f1","","","")},retraso);
             //setTimeout(function(){aniadirLetraPila("#")},retraso);
@@ -212,4 +212,53 @@ function obtenerPalabraValida(cadenaCompleta){
         }
     }
     return palabra;
+}
+
+function velocidadEjecucion() {
+    let url=document.getElementById("evaluador").action;
+    let velocidadEscogida=document.getElementById("velocidad").value;
+    let velocidadActual=null;
+    for (let i = url.length; i>=0; i--) {
+        if (url[i]=="/") {
+            velocidadActual=url.substring(i+1);
+            break;
+        }
+        
+    }
+    document.getElementById("evaluador").action=url.replace(velocidadActual,velocidadEscogida);
+}
+function retrasoSegundos(){
+    let segundos=0;
+    let velocidad=null;
+    if (document.getElementById("velocidad")!=null){
+        velocidad=document.getElementById("velocidad").innerText;
+        if(velocidad=="10"){
+            segundos=1500;
+        }
+        if(velocidad=="9"){
+            segundos=1800;
+        }
+        if(velocidad=="8"){
+            segundos=2100;
+        }
+        if(velocidad=="7"){
+            segundos=2400;
+        }
+        if(velocidad=="6"){
+            segundos=2700;
+        }
+        if (velocidad=="5") {
+            segundos=3000;
+        }
+        if(velocidad=="4"){
+            segundos=3300;
+        }
+        if (velocidad=="10") {
+            segundos=4000;
+        }
+        if (velocidad=="0") {
+            segundos=5000;
+        }
+    }
+    return segundos;
 }

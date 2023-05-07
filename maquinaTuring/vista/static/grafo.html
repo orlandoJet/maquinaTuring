@@ -20,6 +20,12 @@
         <option value="Frances">Frances</option>
     </select>
     <button type="button" id="botonIdioma" onclick="interfazIdioma('true','null'),idiomaSeleccionado('null')">Ok</button>
+    <br>
+    
+    <label for="velocidad">Elige la velocidad de ejecucion del grafo y la cinta:</label>
+    <input type="range" name="velocidad" id="velocidad" min="0" max="10" value="" onchange="velocidadEjecucion(); velocidadEleg();">
+
+
     <section id="grafo">
         <span class="linea" id="l1"></span>
         <span class="flecha" id="f1"></span>
