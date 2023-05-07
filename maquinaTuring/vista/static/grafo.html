@@ -9,7 +9,7 @@
     <link rel="stylesheet" href='{% static "CSS/estiloGrafo.css" %}'>
 </head>
 {% if idioma %}
-<body onload="interfazIdioma('false','{{idioma}}'),mensajeVoz('{{idioma}}'),historialEspacio(),idiomaSeleccionado('{{idioma}}')">
+<body onload="interfazIdioma('false','{{idioma}}'),mensajeVoz('{{idioma}}'),historialEspacio(),idiomaSeleccionado('{{idioma}}'),encenderGrafo()">
 {% else %}
 <body onload="interfazIdioma('false','{{idioma}}'),historialEspacio()"></body>
 {% endif %}
@@ -111,5 +111,6 @@
     </section>
     <script src='{% static "JS/flechasCanvas.js"%}'></script>
     <script src='{% static "JS/grafo.js"%}'></script>
+    <script src='{% static "JS/recorridoGrafoCinta.js"%}'></script>
 </body>
 </html>
