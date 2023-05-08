@@ -202,3 +202,10 @@ th{
     background-color: #f2f2f2;
     color: #444;
 }
+#contCinta{
+    margin-bottom: 20mm;
+}
+#cuadroCabeza{
+    fill: none;
+    stroke: red;
+}
