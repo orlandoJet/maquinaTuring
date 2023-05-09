@@ -142,27 +142,6 @@ function interfazIdioma(validacion,idiomaSel){
         break;
     }
 }
-/*function obtenerPrimeraParteCad(cadenaCompleta) {
-    let primeraParte=null;
-    for (let i = 0; i < cadenaCompleta.length; i++){
-        if (cadenaCompleta[i]=='"') {
-            primeraParte=cadenaCompleta.substring(0,i-1);
-            break;
-        }
-    }
-    return primeraParte
-}
-function obtenerSegundaParteCad(cadenaCompleta) {
-    let segundaParte=null;
-    let indiceFinal=cadenaCompleta.length-1;
-    for (let i = indiceFinal; i>=0; i--){
-        if (cadenaCompleta[i]=='"') {
-            segundaParte=cadenaCompleta.substring(i+2,cadenaCompleta.length);
-            break;
-        }
-    }
-    return segundaParte
-}*/
 function obtenerPrimeraParteCad(cadenaCompleta) {
     let primeraParte=null;
     for (let i = 0; i < cadenaCompleta.length; i++){
@@ -240,7 +219,7 @@ function reemplazarCadena(cadenaVieja, cadenaNueva, cadenaCompleta) {
 }
 function esValido(palabra) {
     let palabraVal=null;
-    if (palabra.length > 5) {
+    if (palabra.length > 0) {
         for (let i = 0; i < palabra.length; i++) {
             if (palabra[i]=="a" || palabra[i]=="b") {
                 palabraVal=true;

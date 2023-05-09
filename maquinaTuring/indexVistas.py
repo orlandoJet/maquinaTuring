@@ -9,7 +9,7 @@ from  automata.tm.ntm  import NTM
 class CrearMaquinaTuring:
     @csrf_exempt
     def grafo(request):
-        docExterno=open("C:/Users/user/Downloads/maquinaTuring/maquinaTuring/vista/static/grafo.html")
+        docExterno=open("C:/Users/user/Desktop/grabaciones y clases unimag/SEMESTRE 9/COMPILADORES/tareas/maquinaTuring/maquinaTuring/vista/static/grafo.html")
         plt=Template(docExterno.read())
         docExterno.close()
         ctx=Context()
@@ -20,15 +20,24 @@ class CrearMaquinaTuring:
         palabra = request.POST.get('palabra', '') # Obtener la palabra del usuario
         resultados = []
         p = list(palabra)
-        if len(p) > 5 or p == 'a' or p =='b':
+        palabraVal=True
+        if len(p) > 0:
             for i in range(len(p)):
                 if p[i] == 'b':
                     p[i] = 'a'
+                if p[i] == 'a' or p[i] =='b':
+                    palabraVal=True
+                else:
+                    palabraVal=False
+                    break      
+        else:
+           palabraVal=False
+        if palabraVal:
             resultados.append(f'La cadena "{palabra}" es aceptada')
         else:
-            resultados.append(f'la cadena "{palabra}" no tiene suficientes letras o tiene algun caracter invalido')
+            resultados.append(f'la cadena "{palabra}" no tiene suficientes letras o tiene algun caracter invalido') 
         Historial(palabrasIngresadas=palabra, estadoDelaPalabra=resultados).save()
-        docExterno=open("C:/Users/user/Downloads/maquinaTuring/maquinaTuring/vista/static/grafo.html")
+        docExterno=open("C:/Users/user/Desktop/grabaciones y clases unimag/SEMESTRE 9/COMPILADORES/tareas/maquinaTuring/maquinaTuring/vista/static/grafo.html")
         plt=Template(docExterno.read())
         docExterno.close()
         ctx=Context({'resultados': resultados, 'palabra': palabra, 'idioma':idioma})
@@ -38,7 +47,7 @@ class CrearMaquinaTuring:
     @csrf_exempt
     def historial(request):
         historial_Palabras = Historial.objects.all()
-        docExterno=open("C:/Users/user/Downloads/maquinaTuring/maquinaTuring/vista/static/grafo.html")
+        docExterno=open("C:/Users/user/Desktop/grabaciones y clases unimag/SEMESTRE 9/COMPILADORES/tareas/maquinaTuring/maquinaTuring/vista/static/grafo.html")
         plt=Template(docExterno.read())
         docExterno.close()
         ctx=Context({'historial': historial_Palabras})

@@ -62,8 +62,8 @@
                 <rect class="cuadro" width="50" height="50"></rect>
                 <text class="letraCin" x="20" y="33" id="letraSiguiente"></text>
             </g>
-            <rect id="cuadroCabeza" width="60" height="60" x="425" y="-5"></rect>
         </g>
+        <rect id="cuadroCabeza" width="60" height="60" x="425" y="5"></rect>
     </svg>
     <br><br><br><br><br><br><br>
     <section id="insercion">
@@ -76,6 +76,9 @@
             <input type="text" name="palabra" id='palabra' placeholder="Ingrese una palabra...">
             <button id="validacion" type="submit" onclick="interfazIdioma()">Evaluar</button>
         </form>
+        {% if resultados %}
+            <button id="validacion" type="submit" onclick="interfazIdioma()">pausar/reproducir</button>
+        {% endif %}
         {% if resultados %}
             <ul>
             {% for resultado in resultados %}
@@ -116,6 +119,7 @@
         <p id="sinHistorial"> "No hay palabras en el historial."</p>
         {% endif %}
     </section>
+    <script src='{% static "JS/anime.min.js"%}'></script>
     <script src='{% static "JS/flechasCanvas.js"%}'></script>
     <script src='{% static "JS/grafo.js"%}'></script>
     <script src='{% static "JS/recorridoGrafoCinta.js"%}'></script>

@@ -109,19 +109,17 @@ function encenderGrafo(){
         let retraso=2000;
         let auxRetr=2000;
         let texto=null;
-        let trans=50;
+        let trans=-50;
         if(palabra!=null){
             let letrasB=llenarCinta(palabra);
             let indexB=0;
             setTimeout(function(){correrComandos("q1","l1","f1","","","")},retraso);
-            //setTimeout(function(){aniadirLetraPila("#")},retraso);
             retraso=retraso+auxRetr;
             for(let i=0; i<palabra.length; i++){
                 if (palabra[i]=="a" && i<palabra.length){
                     setTimeout(function(){correrComandos("","","f4","flechaCurva1","","let1")},retraso);
-                    //setTimeout(function(){aniadirLetraPila("a")},retraso);
-                    setTimeout(function(){recorrerCinta(trans)},retraso,trans);
-                    trans=trans+50;
+                    setTimeout(recorrerCinta,retraso,trans);
+                    trans=trans-50;
                     if (i+1<palabra.length){
                         setTimeout(function(){document.getElementById("let1").style.color="black"},retraso+auxRetr);
                         setTimeout(function(){document.getElementById("f4").style.borderTopColor="black"},retraso+auxRetr);
@@ -134,11 +132,11 @@ function encenderGrafo(){
                 }
                 if (palabra[i]=="b" && i<palabra.length){
                     setTimeout(function(){correrComandos("","","f5","flechaCurva2","","let2")},retraso);
-                    //setTimeout(function(){aniadirLetraPila("b")},retraso);
                     palabra[i]="a";
-                    setTimeout(function(){recorrerCinta(trans)},retraso,trans);
-                    setTimeout(function(){texto=letrasB[indexB];texto.innerHTML="a";indexB++},retraso);
-                    trans=trans+50;
+                    setTimeout(recorrerCinta,retraso,trans);
+                    setTimeout(cambiarBporA,retraso,letrasB,indexB);
+                    indexB++;
+                    trans=trans-50;
                     if (i+1<palabra.length){
                         setTimeout(function(){document.getElementById("let2").style.color="black"},retraso+auxRetr);
                         setTimeout(function(){document.getElementById("f5").style.borderTopColor="black"},retraso+auxRetr);
@@ -153,24 +151,29 @@ function encenderGrafo(){
             }
             for (let j = palabra.length; j>=0; j--){
                 if (j==palabra.length){
-                    trans=trans-50;
+                    trans=trans+100;
                     setTimeout(function(){correrComandos("q2","l2","f2","","","let3")},retraso);
-                    setTimeout(function(){recorrerCinta(trans)},retraso,trans);
+                    setTimeout(recorrerCinta,retraso,trans);
                 }
                 if(j<palabra.length){
-                    trans=trans-50;
+                    trans=trans+50;
                     setTimeout(function(){correrComandos("","","f6","flechaCurva3","","let4")},retraso);
-                    setTimeout(function(){recorrerCinta(trans)},retraso,trans);
+                    setTimeout(recorrerCinta,retraso,trans);
                 }
                 if(j-1<0){
-                    trans=trans+50;
+                    trans=trans-50;
+                    retraso=retraso+auxRetr;
                     setTimeout(function(){correrComandos("","l3","f3","","q3","let5")},retraso);
-                    setTimeout(function(){recorrerCinta(trans)},retraso,trans);
+                    setTimeout(recorrerCinta,retraso,trans);
                 }
                 retraso=retraso+auxRetr;
             }
         }
     }
+}
+function cambiarBporA(letrasB,index){
+    let texto=letrasB[index];
+    texto.innerHTML="a";
 }
 function llenarCinta(palabra) {
     let texto=null;
@@ -178,6 +181,7 @@ function llenarCinta(palabra) {
     let letrasB=[];
     if (palabra.length==1) {
         document.getElementById("letraComienzo").innerHTML=palabra;
+        letrasB.push(document.getElementById("letraComienzo"));
     }
     else{
         for(let i=0; i<palabra.length; i++){
@@ -211,7 +215,6 @@ function llenarCinta(palabra) {
     return letrasB;
 }
 function crearCuadroCinta(cantTrans){
-    let contCinta=document.querySelector("svg");
     let cinta=document.getElementById("cinta");
     let g=null;
     let recta=null;
@@ -232,14 +235,15 @@ function crearCuadroCinta(cantTrans){
     texto.setAttribute("y", "33");
     g.appendChild(recta);
     g.appendChild(texto);
-    cinta.insertBefore(g,document.getElementById("cuadroCabeza"));
-    contCinta.appendChild(cinta);
+    cinta.appendChild(g);
     return texto;
 }
 function recorrerCinta(movimiento) {
-    let cuadroCabeza=document.getElementById("cuadroCabeza");
-    let transform="transform: translateX("+movimiento+"px)";
-    
+    anime({
+        targets: '#cinta',
+        translateX: movimiento,
+        translateY: 10
+      });
 }
 function correrComandos(estado,linea,flecha,lineaCurva,aceptacion,transicion){
     let comando=null;
@@ -283,7 +287,7 @@ function obtenerPalabraValida(cadenaCompleta){
             palabra=null;
             break;
         }
-        if (palabra.length<=5) {
+        if (palabra.length<0) {
             palabra=null;
             break;
         }
