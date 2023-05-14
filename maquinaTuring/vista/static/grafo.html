@@ -9,7 +9,7 @@
     <link rel="stylesheet" href='{% static "CSS/estiloGrafo.css" %}'>
 </head>
 {% if idioma %}
-<body onload="interfazIdioma('false','{{idioma}}'),mensajeVoz('{{idioma}}'),historialEspacio(),idiomaSeleccionado('{{idioma}}'),encenderGrafo()">
+<body onload="interfazIdioma('false','{{idioma}}'),mensajeVoz('{{idioma}}'),historialEspacio(),idiomaSeleccionado('{{idioma}}'),controlPasoSeleccionado('{{controlPaso}}'),encenderGrafo()">
 {% else %}
 <body onload="interfazIdioma('false','{{idioma}}'),historialEspacio()"></body>
 {% endif %}
@@ -20,11 +20,18 @@
         <option value="Frances">Frances</option>
     </select>
     <button type="button" id="botonIdioma" onclick="interfazIdioma('true','null'),idiomaSeleccionado('null')">Ok</button>
+    <a id="lenguajeSelec">{idioma seleccionado:Espa&ntildeol}</a>
     <br>
-    
+    <label for="evaluarPaso" id="eleccionEval">	&#191;evaluar paso a paso?</label>
+    <select name="evaluarPaso" id="evaluarPaso">
+        <option value="no">No</option>
+        <option value="si">Si</option>
+    </select>
+    <button type="button" id="botonPaso" onclick="controlPasoSeleccionado('null')">Ok</button>
+    <a id="pasoSelec">{paso a paso:no}</a>
+    <br>
     <label for="velocidad">Elige la velocidad de ejecucion del grafo y la cinta:</label>
     <input type="range" name="velocidad" id="velocidad" min="0" max="10" value="" onchange="velocidadEjecucion(); velocidadEleg();">
-
 
     <section id="grafo">
         <span class="linea" id="l1"></span>
@@ -68,16 +75,16 @@
     <br><br><br><br><br><br><br>
     <section id="insercion">
         {% if idioma %}
-        <form method="post" action="{% url 'maquinaTuring' '{{idioma}}' %}"  id="evaluador" >
+            <form method="post" action="{% url 'maquinaTuring' '{{controlPaso}}' '{{idioma}}'  %}"  id="evaluador" >
         {% else %}
-        <form method="post" action="{% url 'maquinaTuring' 'Espaniol' %}"  id="evaluador" >
+            <form method="post" action="{% url 'maquinaTuring' 'no' 'Espaniol'  %}"  id="evaluador" >
         {% endif %}
             {% csrf_token %}
             <input type="text" name="palabra" id='palabra' placeholder="Ingrese una palabra...">
             <button id="validacion" type="submit" onclick="interfazIdioma()">Evaluar</button>
         </form>
-        {% if resultados %}
-            <button id="validacion" type="submit" onclick="interfazIdioma()">pausar/reproducir</button>
+        {% if controlPaso == "si" %}
+            <button id="validacionPaso" type="submit" onclick="pausarEjecucion()">Evaluar paso a paso</button>
         {% endif %}
         {% if resultados %}
             <ul>
