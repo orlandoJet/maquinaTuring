@@ -171,6 +171,9 @@ function encenderGrafo(){
         }
     }
 }
+function controlPaso(){
+    
+}
 function cambiarBporA(letrasB,index){
     let texto=letrasB[index];
     texto.innerHTML="a";
