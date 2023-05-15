@@ -108,7 +108,6 @@ function encenderGrafo(){
         let palabra=obtenerPalabraValida(cadenaCompleta);
         let retraso=2000;
         let auxRetr=2000;
-        let texto=null;
         let trans=-50;
         if(palabra!=null){
             let letrasB=llenarCinta(palabra);
@@ -171,8 +170,78 @@ function encenderGrafo(){
         }
     }
 }
+var cadenaCompletaPaso=null
+var palabraPaso=null;
+var indexPaso=null;
+var transPaso=null;
+var letrasBPaso=null;
+var indexBPaso=null;
+var finalCinta=null;
+function iniciarControlPaso(){
+    cadenaCompletaPaso=document.getElementById("mensajeAutomata").innerText;
+    palabraPaso=obtenerPalabraValida(cadenaCompletaPaso);
+    indexPaso=0;
+    transPaso=-50;
+    letrasBPaso=llenarCinta(palabraPaso);
+    indexBPaso=0;
+    finalCinta=false;
+}
 function controlPaso(){
-    
+    if(indexPaso<palabraPaso.length && finalCinta==false){
+        if(indexPaso==0){
+            correrComandos("q1","l1","f1","","","");
+        }
+        if (palabraPaso[indexPaso]=="a" && indexPaso<palabraPaso.length){
+            correrComandos("","","f4","flechaCurva1","","let1");
+            recorrerCinta(transPaso);
+            transPaso=transPaso-50;
+            document.getElementById("let2").style.color="black";
+            document.getElementById("f5").style.borderTopColor="black";
+            document.getElementById("f5").style.borderRightColor="black";
+            let ctx=document.getElementById("flechaCurva2").getContext("2d");
+            ctx.strokeStyle = "black";
+            ctx.stroke();
+        }
+        if (palabraPaso[indexPaso]=="b" && indexPaso<palabraPaso.length){
+            correrComandos("","","f5","flechaCurva2","","let2");
+            palabraPaso[indexPaso]="a";
+            recorrerCinta(transPaso);
+            cambiarBporA(letrasBPaso,indexBPaso);
+            indexBPaso++;
+            transPaso=transPaso-50;
+            document.getElementById("let1").style.color="black";
+            document.getElementById("f4").style.borderTopColor="black";
+            document.getElementById("f4").style.borderRightColor="black";
+            let ctx=document.getElementById("flechaCurva1").getContext("2d");
+            ctx.strokeStyle = "black";
+            ctx.stroke();
+        }
+        if(indexPaso+1==palabraPaso.length){
+            finalCinta=true;
+            console.log(indexPaso);
+            console.log(transPaso);
+        }
+        indexPaso++;
+    }
+    else if(finalCinta){
+        if(indexPaso==palabraPaso.length){
+            transPaso=transPaso+100;
+            correrComandos("q2","l2","f2","","","let3");
+            recorrerCinta(transPaso);
+        }
+        if(indexPaso<palabraPaso.length && indexPaso>=0){
+            transPaso=transPaso+50;
+            correrComandos("","","f6","flechaCurva3","","let4");
+            recorrerCinta(transPaso);
+        }
+        if(indexPaso<0){
+            transPaso=transPaso-50;
+            correrComandos("","l3","f3","","q3","let5");
+            recorrerCinta(transPaso);
+        }
+        indexPaso--;
+    }
+
 }
 function cambiarBporA(letrasB,index){
     let texto=letrasB[index];
