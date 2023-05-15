@@ -8,8 +8,10 @@
     <title>maquina de turing</title>
     <link rel="stylesheet" href='{% static "CSS/estiloGrafo.css" %}'>
 </head>
-{% if idioma %}
+{% if idioma and controlPaso == "no" %}
 <body onload="interfazIdioma('false','{{idioma}}'),mensajeVoz('{{idioma}}'),historialEspacio(),idiomaSeleccionado('{{idioma}}'),controlPasoSeleccionado('{{controlPaso}}'),encenderGrafo()">
+{% elif idioma and controlPaso == "si"%}
+<body onload="interfazIdioma('false','{{idioma}}'),mensajeVoz('{{idioma}}'),historialEspacio(),idiomaSeleccionado('{{idioma}}'),controlPasoSeleccionado('{{controlPaso}}'),iniciarControlPaso()">
 {% else %}
 <body onload="interfazIdioma('false','{{idioma}}'),historialEspacio()"></body>
 {% endif %}
@@ -84,7 +86,7 @@
             <button id="validacion" type="submit" onclick="interfazIdioma()">Evaluar</button>
         </form>
         {% if controlPaso == "si" %}
-            <button id="validacionPaso" type="submit" onclick="pausarEjecucion()">Evaluar paso a paso</button>
+            <button id="validacionPaso" type="submit" onclick="controlPaso()">Evaluar paso a paso</button>
         {% endif %}
         {% if resultados %}
             <ul>

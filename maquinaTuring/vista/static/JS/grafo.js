@@ -52,7 +52,6 @@ function interfazIdioma(validacion,idiomaSel){
             for(let i=0; i<idiomaSelActual.length; i++){
                 if (idiomaSelActual[i]==":") {
                    idiomaSelTrad=idiomaSelActual.substring(0,i);
-                   console.log(idiomaSelTrad);
                 }
             }
             pasoSelActual=document.getElementById("pasoSelec").innerText;
