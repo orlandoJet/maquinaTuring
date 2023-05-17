@@ -42,12 +42,15 @@ function interfazIdioma(validacion,idiomaSel){
     let idiomaSelTrad=null;
     let pasoSelActual=null;
     let pasoSelTrad=null;
+    let velSelActual=null;
+    let velSelTrad=null;
     switch (idiomaSel) {
         case "Espaniol":
             document.getElementById("palabra").placeholder = "Ingrese una palabra...";
             document.getElementById("validacion").innerText = "Evaluar";
             document.getElementById("eleccionLeng").innerText = "elija el idioma:";
             document.getElementById("eleccionEval").innerText = "¿evaluar paso a paso?";
+            document.getElementById("eleccionVel").innerText = "Elige la velocidad de ejecucion del grafo y la cinta:";
             idiomaSelActual=document.getElementById("lenguajeSelec").innerText;
             for(let i=0; i<idiomaSelActual.length; i++){
                 if (idiomaSelActual[i]==":") {
@@ -60,8 +63,15 @@ function interfazIdioma(validacion,idiomaSel){
                    pasoSelTrad=pasoSelActual.substring(0,j); 
                 }
             }
+            velSelActual=document.getElementById("velocidadSelec").innerText;
+            for(let j=0; j<velSelActual.length; j++){
+                if (velSelActual[j]==":") {
+                   velSelTrad=velSelActual.substring(0,j); 
+                }
+            }
             document.getElementById("lenguajeSelec").innerText = idiomaSelActual.replace(idiomaSelTrad,"{idioma seleccionado");
             document.getElementById("pasoSelec").innerText = pasoSelActual.replace(pasoSelTrad,"{paso a paso");
+            document.getElementById("velocidadSelec").innerText = velSelActual.replace(velSelTrad,"{velocidad seleccionada");
             /*document.getElementById("eleccionVel").innerText = "elija la velocidad de ejecución del grafo y la pila:";
             document.getElementById("velocidad").options[0].text="normal";
             document.getElementById("velocidad").options[1].text="rápido";
@@ -96,6 +106,7 @@ function interfazIdioma(validacion,idiomaSel){
             document.getElementById("validacion").innerText="evaluate";
             document.getElementById("eleccionLeng").innerText="choose language:";
             document.getElementById("eleccionEval").innerText = "evaluate step by step?";
+            document.getElementById("eleccionVel").innerText = "Choose the execution speed of the graph and the tape:";
             idiomaSelActual=document.getElementById("lenguajeSelec").innerText;
             for(let i=0; i<idiomaSelActual.length; i++){
                 if (idiomaSelActual[i]==":") {
@@ -108,8 +119,15 @@ function interfazIdioma(validacion,idiomaSel){
                    pasoSelTrad=pasoSelActual.substring(0,j); 
                 }
             }
+            velSelActual=document.getElementById("velocidadSelec").innerText;
+            for(let j=0; j<velSelActual.length; j++){
+                if (velSelActual[j]==":") {
+                   velSelTrad=velSelActual.substring(0,j); 
+                }
+            }
             document.getElementById("lenguajeSelec").innerText = idiomaSelActual.replace(idiomaSelTrad,"{selected language");
             document.getElementById("pasoSelec").innerText = pasoSelActual.replace(pasoSelTrad,"{Step by Step");
+            document.getElementById("velocidadSelec").innerText = velSelActual.replace(velSelTrad,"{selected speed");
             /*document.getElementById("eleccionVel").innerText = "choose the graph and stack execution speed:";
             document.getElementById("velocidad").options[0].text="normal";
             document.getElementById("velocidad").options[1].text="fast";
@@ -144,6 +162,7 @@ function interfazIdioma(validacion,idiomaSel){
             document.getElementById("validacion").innerText="Évaluer";
             document.getElementById("eleccionLeng").innerText="choisir la langue :";
             document.getElementById("eleccionEval").innerText = "évaluer étape par étape?";
+            document.getElementById("eleccionVel").innerText = "Choisissez la vitesse d'exécution du graphique et de la bande:";
             idiomaSelActual=document.getElementById("lenguajeSelec").innerText;
             for(let i=0; i<idiomaSelActual.length; i++){
                 if (idiomaSelActual[i]==":") {
@@ -156,8 +175,15 @@ function interfazIdioma(validacion,idiomaSel){
                    pasoSelTrad=pasoSelActual.substring(0,j); 
                 }
             }
+            velSelActual=document.getElementById("velocidadSelec").innerText;
+            for(let j=0; j<velSelActual.length; j++){
+                if (velSelActual[j]==":") {
+                   velSelTrad=velSelActual.substring(0,j); 
+                }
+            }
             document.getElementById("lenguajeSelec").innerText = idiomaSelActual.replace(idiomaSelTrad,"{langue sélectionnée");
             document.getElementById("pasoSelec").innerText = pasoSelActual.replace(pasoSelTrad,"{pas à pas");
+            document.getElementById("velocidadSelec").innerText = velSelActual.replace(velSelTrad,"{vitesse sélectionnée");
             /*document.getElementById("eleccionVel").innerText = "choisissez la vitesse d'exécution du graphe et de la pile :";
             document.getElementById("velocidad").options[0].text="normal";
             document.getElementById("velocidad").options[1].text="rapide";
@@ -284,14 +310,18 @@ function esValido(palabra) {
 function idiomaSeleccionado(idiomaEscogido) {
     let url=document.getElementById("evaluador").action;
     let seleccion=document.getElementById("lenguajeSelec").innerHTML;
+    let indexIdiomaFinal=null;
     if (idiomaEscogido=="null") {
         idiomaEscogido=document.getElementById("lenguaje").value; 
     }
     let idiomaActual=null;
     for (let i = url.length; i>=0; i--) {
-        if (url[i]=="/") {
-            idiomaActual=url.substring(i+1);
+        if (url[i]=="/" && indexIdiomaFinal!=null) {
+            idiomaActual=url.substring(i+1,indexIdiomaFinal);
             break;
+        }
+        if(url[i]=="/"){
+            indexIdiomaFinal=i;
         }
     }
     let seleccionActual=null;
@@ -314,6 +344,7 @@ function controlPasoSeleccionado(controlPasoEscog) {
     let url=document.getElementById("evaluador").action;
     let urlPasoFinal=null;
     let seleccion=document.getElementById("pasoSelec").innerHTML;
+    let auxValid=0;
     if (controlPasoEscog=="null") {
         controlPasoEscog=document.getElementById("evaluarPaso").value; 
     }
@@ -327,7 +358,11 @@ function controlPasoSeleccionado(controlPasoEscog) {
             break;
         }
         if (url[i]=="/"){
+            auxValid++;
+        }
+        if (auxValid==2){
             urlPasoFinal=i;
+            auxValid=0;
         }
     }
     let seleccionActual=null;

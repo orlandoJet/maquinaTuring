@@ -16,7 +16,7 @@ class CrearMaquinaTuring:
         documento=plt.render(ctx)
         return HttpResponse(documento)
     @csrf_exempt
-    def maquinaTuring(request,idioma,controlPaso):
+    def maquinaTuring(request,idioma,controlPaso,velocidad):
         palabra = request.POST.get('palabra', '') # Obtener la palabra del usuario
         resultados = []
         p = list(palabra)
@@ -40,7 +40,7 @@ class CrearMaquinaTuring:
         docExterno=open("C:/Users/user/Desktop/grabaciones y clases unimag/SEMESTRE 9/COMPILADORES/tareas/maquinaTuring/maquinaTuring/vista/static/grafo.html")
         plt=Template(docExterno.read())
         docExterno.close()
-        ctx=Context({'resultados': resultados, 'palabra': palabra, 'idioma':idioma, 'controlPaso':controlPaso})
+        ctx=Context({'resultados': resultados, 'palabra': palabra, 'idioma':idioma, 'controlPaso':controlPaso, 'velocidad':velocidad})
         documento=plt.render(ctx)
         return HttpResponse(documento)
     

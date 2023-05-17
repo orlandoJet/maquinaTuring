@@ -19,7 +19,7 @@ from . import indexVistas
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('inicio/', indexVistas.CrearMaquinaTuring.grafo, name='inicio'),
-    path('maquinaTuring/<str:controlPaso>/<str:idioma>',indexVistas.CrearMaquinaTuring.maquinaTuring, name='maquinaTuring'),
+    path('maquinaTuring/<str:controlPaso>/<str:idioma>/<str:velocidad>',indexVistas.CrearMaquinaTuring.maquinaTuring, name='maquinaTuring'),
     path('historial/',indexVistas.CrearMaquinaTuring.historial, name='historial'),
     path('borrar_historial/',indexVistas.CrearMaquinaTuring.borrar_historial, name='borrar_historial')
 
