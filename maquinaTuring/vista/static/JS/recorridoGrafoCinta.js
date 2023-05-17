@@ -106,8 +106,7 @@ function encenderGrafo(){
     if (document.getElementById("mensajeAutomata")!=null) {
         let cadenaCompleta=document.getElementById("mensajeAutomata").innerText;
         let palabra=obtenerPalabraValida(cadenaCompleta);
-        let retraso = retrasoSegundos();
-        console.log("E",retraso);
+        let retraso=retrasoSegundos();
         let auxRetr=retraso;
         let trans=-50;
         if(palabra!=null){
@@ -239,6 +238,8 @@ function controlPaso(){
             transPaso=transPaso-50;
             correrComandos("","l3","f3","","q3","let5");
             recorrerCinta(transPaso);
+            document.getElementById("validacionPaso").disabled = true;
+            document.getElementById("validacionPaso").style.background="red"
         }
         indexPaso--;
     }
@@ -375,32 +376,42 @@ function obtenerPalabraValida(cadenaCompleta){
     return palabra;
 }
 
-function velocidadEjecucion() {
-    let url = document.getElementById("evaluador").action;
-    let velocidadEscogida = document.getElementById("velocidad").value;
-    let velocidadActual = null;
-    for (let i = url.length; i >= 0; i--) {
-      if (url[i] == "/") {
-        velocidadActual = url.substring(i + 1);
-        break;
-      }
+function velocidadEjecucion(velocidadEscogida) {
+    let url=document.getElementById("evaluador").action;
+    let seleccion=document.getElementById("velocidadSelec").innerHTML;
+    if (velocidadEscogida=="null"){
+        velocidadEscogida=document.getElementById("velocidad").value;
+    } 
+    let velocidadActual=null;
+    for (let i = url.length; i>=0; i--) {
+        if (url[i]=="/") {
+            velocidadActual=url.substring(i+1);
+            break;
+        }
+        
     }
-    document.getElementById("evaluador").action = url.replace(
-      velocidadActual,
-      velocidadEscogida
-    );
-    document.getElementById("velocidad").innerText = velocidadEscogida;
-    //console.log("Velocidad ejecucion",velocidadEscogida);
-    return velocidadEscogida;
-    
+    let seleccionActual=null;
+    for (let j = 0; j < seleccion.length; j++) {
+        if (seleccion[j]==":") {
+            seleccionActual=seleccion.substring(j+1);
+            break;
+        }
+    }
+
+    document.getElementById("velocidadSelec").innerHTML=seleccion.replace(seleccionActual,velocidadEscogida+"}");
+    document.getElementById("evaluador").action=url.replace("/"+velocidadActual,"/"+velocidadEscogida);
 }
 
 function retrasoSegundos() {
     let segundos = 0;
     let velocidad=null;
-    let velocidadEscog=velocidadEjecucion();
-    if (velocidadEscog != null) {
-        velocidad=velocidadEscog;
+    let velocidadEscog=document.getElementById("velocidadSelec").innerHTML;
+    for(let i=velocidadEscog.length; i>=0;i--){
+        if (velocidadEscog[i]==":"){
+            velocidad=velocidadEscog.substring(i+1,velocidadEscog.length-1);
+        }
+    }
+    if (document.getElementById("velocidad")!=null){
         if (velocidad == "10") {
             segundos = 900;
         } 

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href='{% static "CSS/estiloGrafo.css" %}'>
 </head>
 {% if idioma and controlPaso == "no" %}
-<body onload="interfazIdioma('false','{{idioma}}'),mensajeVoz('{{idioma}}'),historialEspacio(),idiomaSeleccionado('{{idioma}}'),encenderGrafo(),controlPasoSeleccionado('{{controlPaso}}')">
+<body onload="interfazIdioma('false','{{idioma}}'),mensajeVoz('{{idioma}}'),historialEspacio(),idiomaSeleccionado('{{idioma}}'),controlPasoSeleccionado('{{controlPaso}}'),velocidadEjecucion('{{velocidad}}'),encenderGrafo()">
 {% elif idioma and controlPaso == "si"%}
 <body onload="interfazIdioma('false','{{idioma}}'),mensajeVoz('{{idioma}}'),historialEspacio(),idiomaSeleccionado('{{idioma}}'),encenderGrafo(),controlPasoSeleccionado('{{controlPaso}}'),iniciarControlPaso()">
 {% else %}
@@ -32,9 +32,9 @@
     <button type="button" id="botonPaso" onclick="controlPasoSeleccionado('null')">Ok</button>
     <a id="pasoSelec">{paso a paso:no}</a>
     <br>
-
     <label for="velocidad" id="eleccionVel">Elige la velocidad de ejecucion del grafo y la cinta:</label>
-    <input type="range" name="velocidad" id="velocidad" min="0" max="10" value="" onchange="velocidadEjecucion(), retrasoSegundos(),encenderGrafo()">
+    <input type="range" name="velocidad" id="velocidad" min="0" max="10" value="" onchange="velocidadEjecucion('null')">
+    <a id="velocidadSelec">{velocidad seleccionada:5}</a>
 
     <section id="grafo">
         <span class="linea" id="l1"></span>
@@ -78,9 +78,9 @@
     <br><br><br><br><br><br><br>
     <section id="insercion">
         {% if idioma %}
-            <form method="post" action="{% url 'maquinaTuring' '{{controlPaso}}' '{{idioma}}'  %}"  id="evaluador" >
+            <form method="post" action="{% url 'maquinaTuring' '{{controlPaso}}' '{{idioma}}' '{{velocidad}}'  %}"  id="evaluador" >
         {% else %}
-            <form method="post" action="{% url 'maquinaTuring' 'no' 'Espaniol'  %}"  id="evaluador" >
+            <form method="post" action="{% url 'maquinaTuring' 'no' 'Espaniol' '5'  %}"  id="evaluador" >
         {% endif %}
             {% csrf_token %}
             <input type="text" name="palabra" id='palabra' placeholder="Ingrese una palabra...">
