@@ -11,7 +11,7 @@
 {% if idioma and controlPaso == "no" %}
 <body onload="interfazIdioma('false','{{idioma}}'),mensajeVoz('{{idioma}}'),historialEspacio(),idiomaSeleccionado('{{idioma}}'),controlPasoSeleccionado('{{controlPaso}}'),velocidadEjecucion('{{velocidad}}'),encenderGrafo()">
 {% elif idioma and controlPaso == "si"%}
-<body onload="interfazIdioma('false','{{idioma}}'),mensajeVoz('{{idioma}}'),historialEspacio(),idiomaSeleccionado('{{idioma}}'),controlPasoSeleccionado('{{controlPaso}}'),iniciarControlPaso()">
+<body onload="interfazIdioma('false','{{idioma}}'),mensajeVoz('{{idioma}}'),historialEspacio(),idiomaSeleccionado('{{idioma}}'),encenderGrafo(),controlPasoSeleccionado('{{controlPaso}}'),iniciarControlPaso()">
 {% else %}
 <body onload="interfazIdioma('false','{{idioma}}'),historialEspacio()"></body>
 {% endif %}

@@ -401,8 +401,9 @@ function velocidadEjecucion(velocidadEscogida) {
     document.getElementById("velocidadSelec").innerHTML=seleccion.replace(seleccionActual,velocidadEscogida+"}");
     document.getElementById("evaluador").action=url.replace("/"+velocidadActual,"/"+velocidadEscogida);
 }
-function retrasoSegundos(){
-    let segundos=0;
+
+function retrasoSegundos() {
+    let segundos = 0;
     let velocidad=null;
     let velocidadEscog=document.getElementById("velocidadSelec").innerHTML;
     for(let i=velocidadEscog.length; i>=0;i--){
@@ -445,5 +446,5 @@ function retrasoSegundos(){
             segundos = 11000;
         }
     }
-    return segundos;
+    return  segundos; 
 }

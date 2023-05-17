@@ -9,7 +9,7 @@ from  automata.tm.ntm  import NTM
 class CrearMaquinaTuring:
     @csrf_exempt
     def grafo(request):
-        docExterno=open("C:/Users/user/Desktop/grabaciones y clases unimag/SEMESTRE 9/COMPILADORES/tareas/maquinaTuring/maquinaTuring/vista/static/grafo.html")
+        docExterno=open("C:/Users/user/Downloads/maquinaTuring/maquinaTuring/vista/static/grafo.html")
         plt=Template(docExterno.read())
         docExterno.close()
         ctx=Context()
@@ -37,7 +37,7 @@ class CrearMaquinaTuring:
         else:
             resultados.append(f'la cadena "{palabra}" no tiene suficientes letras o tiene algun caracter invalido') 
         Historial(palabrasIngresadas=palabra, estadoDelaPalabra=resultados).save()
-        docExterno=open("C:/Users/user/Desktop/grabaciones y clases unimag/SEMESTRE 9/COMPILADORES/tareas/maquinaTuring/maquinaTuring/vista/static/grafo.html")
+        docExterno=open("C:/Users/user/Downloads/maquinaTuring/maquinaTuring/vista/static/grafo.html")
         plt=Template(docExterno.read())
         docExterno.close()
         ctx=Context({'resultados': resultados, 'palabra': palabra, 'idioma':idioma, 'controlPaso':controlPaso, 'velocidad':velocidad})
@@ -47,7 +47,7 @@ class CrearMaquinaTuring:
     @csrf_exempt
     def historial(request):
         historial_Palabras = Historial.objects.all()
-        docExterno=open("C:/Users/user/Desktop/grabaciones y clases unimag/SEMESTRE 9/COMPILADORES/tareas/maquinaTuring/maquinaTuring/vista/static/grafo.html")
+        docExterno=open("C:/Users/user/Downloads/maquinaTuring/maquinaTuring/vista/static/grafo.html")
         plt=Template(docExterno.read())
         docExterno.close()
         ctx=Context({'historial': historial_Palabras})
