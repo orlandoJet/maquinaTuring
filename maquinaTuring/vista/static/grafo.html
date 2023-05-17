@@ -9,9 +9,9 @@
     <link rel="stylesheet" href='{% static "CSS/estiloGrafo.css" %}'>
 </head>
 {% if idioma and controlPaso == "no" %}
-<body onload="interfazIdioma('false','{{idioma}}'),mensajeVoz('{{idioma}}'),historialEspacio(),idiomaSeleccionado('{{idioma}}'),controlPasoSeleccionado('{{controlPaso}}'),encenderGrafo()">
+<body onload="interfazIdioma('false','{{idioma}}'),mensajeVoz('{{idioma}}'),historialEspacio(),idiomaSeleccionado('{{idioma}}'),encenderGrafo(),controlPasoSeleccionado('{{controlPaso}}')">
 {% elif idioma and controlPaso == "si"%}
-<body onload="interfazIdioma('false','{{idioma}}'),mensajeVoz('{{idioma}}'),historialEspacio(),idiomaSeleccionado('{{idioma}}'),controlPasoSeleccionado('{{controlPaso}}'),iniciarControlPaso()">
+<body onload="interfazIdioma('false','{{idioma}}'),mensajeVoz('{{idioma}}'),historialEspacio(),idiomaSeleccionado('{{idioma}}'),encenderGrafo(),controlPasoSeleccionado('{{controlPaso}}'),iniciarControlPaso()">
 {% else %}
 <body onload="interfazIdioma('false','{{idioma}}'),historialEspacio()"></body>
 {% endif %}
@@ -32,8 +32,9 @@
     <button type="button" id="botonPaso" onclick="controlPasoSeleccionado('null')">Ok</button>
     <a id="pasoSelec">{paso a paso:no}</a>
     <br>
-    <label for="velocidad">Elige la velocidad de ejecucion del grafo y la cinta:</label>
-    <input type="range" name="velocidad" id="velocidad" min="0" max="10" value="" onchange="velocidadEjecucion(); velocidadEleg();">
+
+    <label for="velocidad" id="eleccionVel">Elige la velocidad de ejecucion del grafo y la cinta:</label>
+    <input type="range" name="velocidad" id="velocidad" min="0" max="10" value="" onchange="velocidadEjecucion(), retrasoSegundos(),encenderGrafo()">
 
     <section id="grafo">
         <span class="linea" id="l1"></span>
