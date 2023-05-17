@@ -102,20 +102,21 @@ class invocadora{
         this.comando.ejecutar();
     }
 }
+
 function encenderGrafo(){
     if (document.getElementById("mensajeAutomata")!=null) {
         let cadenaCompleta=document.getElementById("mensajeAutomata").innerText;
         let palabra=obtenerPalabraValida(cadenaCompleta);
-        let retraso=retrasoSegundos();
+        let retraso = retrasoSegundos();
+        console.log("E",retraso);
         let auxRetr=retraso;
         if(palabra!=null){
             setTimeout(function(){correrComandos("q1","l1","f1","","","")},retraso);
-            //setTimeout(function(){aniadirLetraPila("#")},retraso);
             retraso=retraso+auxRetr;
             for(let i=0; i<palabra.length; i++){
                 if (palabra[i]=="a" && i<palabra.length){
                     setTimeout(function(){correrComandos("","","f4","flechaCurva1","","let1")},retraso);
-                    //setTimeout(function(){aniadirLetraPila("a")},retraso);
+                    
                     if (i+1<palabra.length){
                         setTimeout(function(){document.getElementById("let1").style.color="black"},retraso+auxRetr);
                         setTimeout(function(){document.getElementById("f4").style.borderTopColor="black"},retraso+auxRetr);
@@ -128,7 +129,7 @@ function encenderGrafo(){
                 }
                 if (palabra[i]=="b" && i<palabra.length){
                     setTimeout(function(){correrComandos("","","f5","flechaCurva2","","let2")},retraso);
-                    //setTimeout(function(){aniadirLetraPila("b")},retraso);
+                    
                     palabra[i]="a";
                     if (i+1<palabra.length){
                         setTimeout(function(){document.getElementById("let2").style.color="black"},retraso+auxRetr);
@@ -155,6 +156,7 @@ function encenderGrafo(){
                 retraso=retraso+auxRetr;
             }
         }
+        
     }
 }
 function correrComandos(estado,linea,flecha,lineaCurva,aceptacion,transicion){
@@ -213,52 +215,65 @@ function obtenerPalabraValida(cadenaCompleta){
     }
     return palabra;
 }
-
 function velocidadEjecucion() {
-    let url=document.getElementById("evaluador").action;
-    let velocidadEscogida=document.getElementById("velocidad").value;
-    let velocidadActual=null;
-    for (let i = url.length; i>=0; i--) {
-        if (url[i]=="/") {
-            velocidadActual=url.substring(i+1);
-            break;
-        }
-        
+    let url = document.getElementById("evaluador").action;
+    let velocidadEscogida = document.getElementById("velocidad").value;
+    let velocidadActual = null;
+    for (let i = url.length; i >= 0; i--) {
+      if (url[i] == "/") {
+        velocidadActual = url.substring(i + 1);
+        break;
+      }
     }
-    document.getElementById("evaluador").action=url.replace(velocidadActual,velocidadEscogida);
+    document.getElementById("evaluador").action = url.replace(
+      velocidadActual,
+      velocidadEscogida
+    );
+    document.getElementById("velocidad").innerText = velocidadEscogida;
+    //console.log("Velocidad ejecucion",velocidadEscogida);
+    return velocidadEscogida;
+    
 }
-function retrasoSegundos(){
-    let segundos=0;
+
+function retrasoSegundos() {
+    let segundos = 0;
     let velocidad=null;
-    if (document.getElementById("velocidad")!=null){
-        velocidad=document.getElementById("velocidad").innerText;
-        if(velocidad=="10"){
-            segundos=1500;
+    let velocidadEscog=velocidadEjecucion();
+    if (velocidadEscog != null) {
+        velocidad=velocidadEscog;
+        if (velocidad == "10") {
+            segundos = 900;
+        } 
+        if (velocidad == "9") {
+            segundos = 2000;
+        } 
+        if (velocidad == "8") {
+            segundos = 3000;
+        } 
+        if (velocidad == "7") {
+            segundos = 4000;
+        } 
+        if (velocidad == "6") {
+            segundos = 5000;
+        } 
+        if (velocidad == "5") {
+            segundos = 6000;
+        } 
+        if (velocidad == "4") {
+            segundos = 7000;
+        } 
+        if (velocidad == "3") {
+            segundos = 8000;
+        } 
+        if (velocidad == "2") {
+            segundos = 9000;
+        } 
+        if (velocidad == "1") {
+            segundos = 10000;
         }
-        if(velocidad=="9"){
-            segundos=1800;
-        }
-        if(velocidad=="8"){
-            segundos=2100;
-        }
-        if(velocidad=="7"){
-            segundos=2400;
-        }
-        if(velocidad=="6"){
-            segundos=2700;
-        }
-        if (velocidad=="5") {
-            segundos=3000;
-        }
-        if(velocidad=="4"){
-            segundos=3300;
-        }
-        if (velocidad=="10") {
-            segundos=4000;
-        }
-        if (velocidad=="0") {
-            segundos=5000;
+        if (velocidad == "0") {
+            segundos = 11000;
         }
     }
-    return segundos;
+    return  segundos; 
 }
